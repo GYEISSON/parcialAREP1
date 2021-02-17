@@ -21,22 +21,20 @@ import spark.Response;
  */
 public class App 
 {
+	private static Cache cache = new Cache();
+	
     public static void main( String[] args )
     {
 
         System.out.println( "Hello Clima!" );
         port(getPort());
         get("/clima", (req, res) -> inputDataPage(req, res));
+        
 
     }
-    private static JSONObject inputDataPage(Request req, Response res) throws org.json.simple.parser.ParseException {
+    private static String inputDataPage(Request req, Response res) throws org.json.simple.parser.ParseException {
     	String lugar = req.queryParams("lugar");
-    	
-    	ConnectionService cs = new ConnectionService();
-    	String  j =  cs.HTTPConnection(lugar);
-
-    	JSONObject json = new JSONObject(j);
-    	
+    	String json = cache.inCache(lugar);
         return json;
     }
     
