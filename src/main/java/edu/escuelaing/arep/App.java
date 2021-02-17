@@ -31,17 +31,13 @@ public class App
     }
     private static JSONObject inputDataPage(Request req, Response res) throws org.json.simple.parser.ParseException {
     	String lugar = req.queryParams("lugar");
-    	System.out.println(lugar);
+    	
     	ConnectionService cs = new ConnectionService();
     	String  j =  cs.HTTPConnection(lugar);
-    	System.out.println(j);
-    	JSONObject json2 = new JSONObject("");
 
-    	JSONParser parser = new JSONParser(); 
-    	json2 = (JSONObject) parser.parse(j);
-
+    	JSONObject json = new JSONObject(j);
     	
-        return json2;
+        return json;
     }
     
     public static  int getPort(){
