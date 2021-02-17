@@ -15,7 +15,7 @@ public class Cache {
 		if (!dic.containsKey(lugar)) {
 			 dic.put(lugar, cs.HTTPConnection(lugar));
 		}
-		System.out.println(dic.size());
+
 		return dic.get(lugar);	
 	}
 
