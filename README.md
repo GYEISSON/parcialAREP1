@@ -72,7 +72,7 @@ Para correr las pruebas ejecutamos la siguiente linea:
 
 mvn test
 
-```
+
 
   
 
@@ -92,7 +92,7 @@ mvn test
 
 ## Autor
 
-*  **Yeisson Gualdron** - [GYEISSON](https://github.com/GYEISSON)
+*  **Yeisson Gualdron** - [GYEISSON](https://github.com/GYEISSON)   
 
   
 
