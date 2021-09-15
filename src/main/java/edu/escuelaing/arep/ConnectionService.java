@@ -1,35 +1,64 @@
 package edu.escuelaing.arep;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.json.JSONObject;
-
+/** @author yeison */
 public class ConnectionService {
-	
-	public String HTTPConnection(String lugar){
-        StringBuilder rta = new StringBuilder();
-        try {
-            URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q="+lugar+"&appid=58d751474603bff74ebd559023792d9f");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                rta.append(line);
+
+  /**
+   * @param lugar
+   * @return
+   */
+  public String HTTPConnection(String as_lugar) {
+    StringBuilder lsb_rta;
+
+    lsb_rta = new StringBuilder();
+    try {
+      StringBuilder lsb_urlString;
+      String ls_urlApi;
+      String ls_idApi;
+
+      lsb_urlString = new StringBuilder();
+      ls_urlApi = "https://api.openweathermap.org/data/2.5/weather?q=";
+      ls_idApi = "&appid=58d751474603bff74ebd559023792d9f";
+
+      if (as_lugar != null && !as_lugar.isEmpty()) {
+
+        lsb_urlString.append(ls_urlApi);
+        lsb_urlString.append(as_lugar);
+        lsb_urlString.append(ls_idApi);
+
+        URL lurl_url = new URL(lsb_urlString.toString());
+        if (lurl_url != null) {
+          HttpURLConnection lhuc_connection = (HttpURLConnection) lurl_url.openConnection();
+          if (lhuc_connection != null) {
+
+            lhuc_connection.setRequestMethod("GET");
+            InputStreamReader lisr_isr;
+            lisr_isr = new InputStreamReader(lhuc_connection.getInputStream());
+            if (lisr_isr != null) {
+
+              BufferedReader lbr_bufferedReader;
+              lbr_bufferedReader = new BufferedReader(lisr_isr);
+              if (lbr_bufferedReader != null) {
+
+                String line;
+                while ((line = lbr_bufferedReader.readLine()) != null) {
+                  lsb_rta.append(line);
+                }
+                lbr_bufferedReader.close();
+              }
             }
-            bufferedReader.close();
-        }catch (Exception e){
-
+          }
         }
+      }
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+    }
 
-        return rta.toString();
-	}
+    return lsb_rta.toString();
+  }
 }
